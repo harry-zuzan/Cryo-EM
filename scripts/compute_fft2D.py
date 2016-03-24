@@ -94,7 +94,7 @@ for hfname in pargs:
 		sys.exit()
 
 	real_data = real_dset[:].astype(numpy.float)
-	fft_data = numpy.fft.fft2(real_data)
+	fft_data = numpy.fft.fft2(real_data,norm="ortho")
 
 	try:
 		if fourier_data_set in data_grp: del data_grp[fourier_data_set]
@@ -108,7 +108,7 @@ for hfname in pargs:
 
 	try: data_grp.create_dataset(fourier_data_set,data=fft_data)
 	except:
-		err_str = 'Error dataset {} in HDF group {}'.format(fourier_data_set,group)
+		err_str = 'Error dataset {} in HDF group {},norm="ortho"'.format(fourier_data_set,group)
 		print(err_str)
 		print('closing', hfname)
 		hfile.close()
