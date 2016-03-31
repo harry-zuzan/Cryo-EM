@@ -96,10 +96,9 @@ npix = ncol*nrow
 fname_fmt = '{0}{1:d}{2}'.format('{0}/{1}{2:0>',digits,'d}.hdf5')
 
 for k in range(nimg):
-#	if k > 20: break
 	infile.seek(HEADER_LEN + k*npix)
 	byte_img = infile.read(npix*4)
-	arr_img = numpy.fromstring(byte_img,numpy.float32)
+	arr_img = numpy.fromstring(byte_img,numpy.double)
 
 	arr_img.shape = nrow,ncol
 
