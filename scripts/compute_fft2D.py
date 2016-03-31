@@ -19,7 +19,7 @@ SPATIAL_DATA_SET = 'real image'
 FOURIER_DATA_SET = 'fourier image'
 
 def parse_options():
-	usage = "usage: %prog [options] mrc-file"
+	usage = "usage: %prog [options] hdfc-image-files"
 
 	parser = optparse.OptionParser(usage=usage)
 
