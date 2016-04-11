@@ -110,10 +110,11 @@ eprec = getattr(options,'edge-prec')
 dprec = getattr(options,'diagonal-prec')
 lprec = getattr(options,'likelihood-prec')
 
+
 # identify the precision relative to likelihood
 prior_prec_sum = 4.0*(abs(eprec) + abs(dprec))
-eprec /= prior_prec_sum
-dprec /= prior_prec_sum
+eprec_std = eprec/prior_prec_sum
+dprec_std = dprec/prior_prec_sum
 
 
 Wavelet = pywt.Wavelet(wavelet)
@@ -129,9 +130,12 @@ for hfname in pargs:
 	for k in range(len(lprec)):
 		lprec_k = lprec[k]
 
-		coeffs[-(k+1)][0][:] = bws2d(coeffs[-(k+1)][0], eprec, dprec, lprec[k])
-		coeffs[-(k+1)][1][:] = bws2d(coeffs[-(k+1)][1], eprec, dprec, lprec[k])
-		coeffs[-(k+1)][2][:] = bws2d(coeffs[-(k+1)][2], eprec, dprec, lprec[k])
+		coeffs[-(k+1)][0][:] = bws2d(coeffs[-(k+1)][0],
+								eprec_std, dprec_std, lprec[k])
+		coeffs[-(k+1)][1][:] = bws2d(coeffs[-(k+1)][1],
+								eprec_std, dprec_std, lprec[k])
+		coeffs[-(k+1)][2][:] = bws2d(coeffs[-(k+1)][2],
+								eprec_std, dprec_std, lprec[k])
 
 	arr2d_shrunk = pywt.waverec2(coeffs,Wavelet)
 
@@ -139,7 +143,12 @@ for hfname in pargs:
 	sgrp = hfile[shrunk_group]
 
 	if shrunk_data_set in sgrp: del sgrp[shrunk_data_set]
-	sgrp.create_dataset(shrunk_data_set, data=arr2d_shrunk)
+	sdset = sgrp.create_dataset(shrunk_data_set, data=arr2d_shrunk)
+
+	sdset.attrs['wavelet'] = wavelet
+	sdset.attrs['likelihood precision'] = lprec
+	sdset.attrs['prior edge precision'] = eprec
+	sdset.attrs['prior diagonal precision'] = dprec
 
 	hfile.close()
 
