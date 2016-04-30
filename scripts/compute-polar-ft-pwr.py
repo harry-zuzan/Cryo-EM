@@ -105,18 +105,7 @@ radius_samples = getattr(options,'radius-samples')
 rotation_samples = getattr(options,'rotation-samples')
 
 
-#print('group =', group)
-#print('fourier_data_set =', fourier_data_set)
-#print('polar_data_set =', polar_data_set)
-#
-#print('polar_rows =', polar_rows)
-#print('polar_cols =', polar_cols)
-#print('polar_radius =', polar_radius)
-#print('radius_samples =', radius_samples)
-#print('rotation_samples =', rotation_samples)
-
 #------------------------------------------------------
-
 
  
 # the Fourier transform needs to be recentred to visualise the symmetry
@@ -203,7 +192,6 @@ for hfname in pargs:
 
 	# start in the middle going out
 	for pcol in range(polar_cols):
-		print('pcol =', pcol)
 
 		rad1,rad2 = radius_steps[pcol], radius_steps[pcol+1]
 		radii = get_sampling_radii(rad1,rad2,radius_samples)
