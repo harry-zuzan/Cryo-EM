@@ -6,6 +6,13 @@ from libc.math cimport cos, sin, sqrt
 from libc.math cimport M_PI
 
 
+# The Fourier transform with image sum at (0,0) needs to be recentred
+def recentre_image(the_img):
+	the_img = numpy.roll(the_img,the_img.shape[0]/2,0)
+	the_img = numpy.roll(the_img,the_img.shape[1]/2,1)
+	return the_img
+
+
 # radial sampling of the wedge for each radial increment 
 # take the square root to sample mini-wedges of equal area
 def get_sample_radii(double rad1, double rad2, int nrad):

@@ -1,7 +1,8 @@
 from polar_image_ft import polar_ft
-from polar_image_pcode import recentre_image, get_sampling_radii
-#from polar_image_pcode import get_sampling_angles
+from polar_image_ft import recentre_image
+from polar_image_ft import get_sample_radii, get_sample_rotations
+from polar_image_ft import recentre_image
 
-__all__ = ["polar_ft", "recentre_image", "get_sampling_radii",
-	 "get_sampling_angles"]
+__all__ = ["polar_ft", "recentre_image", "get_sample_radii",
+	 "get_sample_rotations"]
 
