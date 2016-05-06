@@ -1260,7 +1260,6 @@ static PyObject *__pyx_n_s_float64;
 static PyObject *__pyx_n_s_get_sample_radii;
 static PyObject *__pyx_n_s_get_sample_rotations;
 static PyObject *__pyx_kp_s_home_harry_local_Cryo_EM_cryoem;
-static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_int;
 static PyObject *__pyx_n_s_j;
@@ -2322,8 +2321,10 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
   CYTHON_UNUSED PyArrayObject *__pyx_v_rotation_steps = 0;
   double __pyx_v_centre_x;
   double __pyx_v_centre_y;
-  CYTHON_UNUSED PyObject *__pyx_v_sample_radii = NULL;
+  PyObject *__pyx_v_sample_radii = NULL;
   PyArrayObject *__pyx_v_sample_rotations = 0;
+  int __pyx_v_j;
+  int __pyx_v_k;
   double __pyx_v_rad1;
   double __pyx_v_rad2;
   double __pyx_v_rotn;
@@ -2337,7 +2338,6 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
   PyObject *__pyx_v_prow = NULL;
   double __pyx_v_shift_rotn;
   PyObject *__pyx_v_rotns = NULL;
-  long __pyx_v_k;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_polar_img;
   __Pyx_Buffer __pyx_pybuffer_polar_img;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_power_img;
@@ -2663,7 +2663,7 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
  * 	cdef numpy.ndarray[numpy.float64_t,ndim=1] sample_rotations = \
  * 		get_sample_rotations(npolar_rows,rotation_samples)             # <<<<<<<<<<<<<<
  * 
- * 
+ * 	cdef int j,k
  */
   __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_sample_rotations); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_12);
@@ -2712,7 +2712,7 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
   __pyx_v_sample_rotations = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cryoem/polar_image_ft.pyx":96
+  /* "cryoem/polar_image_ft.pyx":94
  * 
  * 	# start in the middle going out
  * 	for pcol from 0 < pcol < npolar_cols:             # <<<<<<<<<<<<<<
@@ -2721,46 +2721,46 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
  */
   __pyx_t_15 = __pyx_v_npolar_cols;
   for (__pyx_t_16 = 0+1; __pyx_t_16 < __pyx_t_15; __pyx_t_16++) {
-    __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_t_16); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_t_16); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_pcol, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "cryoem/polar_image_ft.pyx":97
+    /* "cryoem/polar_image_ft.pyx":95
  * 	# start in the middle going out
  * 	for pcol from 0 < pcol < npolar_cols:
  * 		rad1,rad2 = radius_steps[pcol], radius_steps[pcol+1]             # <<<<<<<<<<<<<<
  * 		sample_radii = get_sample_radii(rad1,rad2,radius_samples)
  * 
  */
-    __pyx_t_3 = PyObject_GetItem(((PyObject *)__pyx_v_radius_steps), __pyx_v_pcol); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = PyObject_GetItem(((PyObject *)__pyx_v_radius_steps), __pyx_v_pcol); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_pcol, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_pcol, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_12 = PyObject_GetItem(((PyObject *)__pyx_v_radius_steps), __pyx_t_3); if (unlikely(__pyx_t_12 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_12 = PyObject_GetItem(((PyObject *)__pyx_v_radius_steps), __pyx_t_3); if (unlikely(__pyx_t_12 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_12); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_12); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __pyx_v_rad1 = __pyx_t_17;
     __pyx_v_rad2 = __pyx_t_18;
 
-    /* "cryoem/polar_image_ft.pyx":98
+    /* "cryoem/polar_image_ft.pyx":96
  * 	for pcol from 0 < pcol < npolar_cols:
  * 		rad1,rad2 = radius_steps[pcol], radius_steps[pcol+1]
  * 		sample_radii = get_sample_radii(rad1,rad2,radius_samples)             # <<<<<<<<<<<<<<
  * 
  * 		# go around the circle in uniform steps as with radii but no square root
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_sample_radii); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_sample_radii); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PyFloat_FromDouble(__pyx_v_rad1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyFloat_FromDouble(__pyx_v_rad1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rad2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rad2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_radius_samples); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_radius_samples); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_4 = NULL;
     __pyx_t_10 = 0;
@@ -2774,7 +2774,7 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
         __pyx_t_10 = 1;
       }
     }
-    __pyx_t_19 = PyTuple_New(3+__pyx_t_10); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_19 = PyTuple_New(3+__pyx_t_10); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_19);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -2788,37 +2788,37 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
     __pyx_t_2 = 0;
     __pyx_t_1 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_19, NULL); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_19, NULL); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF_SET(__pyx_v_sample_radii, __pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "cryoem/polar_image_ft.pyx":101
+    /* "cryoem/polar_image_ft.pyx":99
  * 
  * 		# go around the circle in uniform steps as with radii but no square root
  * 		for prow in range(npolar_rows):             # <<<<<<<<<<<<<<
  * 			shift_rotn = 2.0*M_PI*<double>(prow)/<double>(npolar_rows)
  * 			rotns = sample_rotations + shift_rotn
  */
-    __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_npolar_rows); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_npolar_rows); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_12);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_12);
     __pyx_t_12 = 0;
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (likely(PyList_CheckExact(__pyx_t_12)) || PyTuple_CheckExact(__pyx_t_12)) {
       __pyx_t_3 = __pyx_t_12; __Pyx_INCREF(__pyx_t_3); __pyx_t_10 = 0;
       __pyx_t_20 = NULL;
     } else {
-      __pyx_t_10 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_10 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_20 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_20 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     for (;;) {
@@ -2826,17 +2826,17 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
         if (likely(PyList_CheckExact(__pyx_t_3))) {
           if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_12 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_12); __pyx_t_10++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_12); __pyx_t_10++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_12 = PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_12);
           #endif
         } else {
           if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_12 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_12); __pyx_t_10++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_12); __pyx_t_10++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_12 = PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_12);
           #endif
         }
@@ -2846,7 +2846,7 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           break;
         }
@@ -2855,37 +2855,37 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
       __Pyx_XDECREF_SET(__pyx_v_prow, __pyx_t_12);
       __pyx_t_12 = 0;
 
-      /* "cryoem/polar_image_ft.pyx":102
+      /* "cryoem/polar_image_ft.pyx":100
  * 		# go around the circle in uniform steps as with radii but no square root
  * 		for prow in range(npolar_rows):
  * 			shift_rotn = 2.0*M_PI*<double>(prow)/<double>(npolar_rows)             # <<<<<<<<<<<<<<
  * 			rotns = sample_rotations + shift_rotn
  * 
  */
-      __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_v_prow); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_v_prow); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 100; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __pyx_t_17 = ((2.0 * M_PI) * ((double)__pyx_t_18));
       if (unlikely(((double)__pyx_v_npolar_rows) == 0)) {
         PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 100; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __pyx_v_shift_rotn = (__pyx_t_17 / ((double)__pyx_v_npolar_rows));
 
-      /* "cryoem/polar_image_ft.pyx":103
+      /* "cryoem/polar_image_ft.pyx":101
  * 		for prow in range(npolar_rows):
  * 			shift_rotn = 2.0*M_PI*<double>(prow)/<double>(npolar_rows)
  * 			rotns = sample_rotations + shift_rotn             # <<<<<<<<<<<<<<
  * 
  * 			# the sampling points of the cartesian image in polar coordinates
  */
-      __pyx_t_12 = PyFloat_FromDouble(__pyx_v_shift_rotn); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_12 = PyFloat_FromDouble(__pyx_v_shift_rotn); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_19 = PyNumber_Add(((PyObject *)__pyx_v_sample_rotations), __pyx_t_12); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_19 = PyNumber_Add(((PyObject *)__pyx_v_sample_rotations), __pyx_t_12); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_19);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_XDECREF_SET(__pyx_v_rotns, __pyx_t_19);
       __pyx_t_19 = 0;
 
-      /* "cryoem/polar_image_ft.pyx":109
+      /* "cryoem/polar_image_ft.pyx":107
  * 
  * 			# now sample the wedge
  * 			pixel_sum = 0.0             # <<<<<<<<<<<<<<
@@ -2894,50 +2894,63 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
  */
       __pyx_v_pixel_sum = 0.0;
 
-      /* "cryoem/polar_image_ft.pyx":112
+      /* "cryoem/polar_image_ft.pyx":110
  * 
  * 			# really need to fix this up the radii are off
- * 			for radius from 0 < radius < radius_samples:             # <<<<<<<<<<<<<<
+ * 			for j from 0 < j < radius_samples:             # <<<<<<<<<<<<<<
+ * 				radius = sample_radii[j]
+ * 				for k from 0 < k < rotation_samples:
+ */
+      __pyx_t_21 = __pyx_v_radius_samples;
+      for (__pyx_v_j = 0+1; __pyx_v_j < __pyx_t_21; __pyx_v_j++) {
+
+        /* "cryoem/polar_image_ft.pyx":111
+ * 			# really need to fix this up the radii are off
+ * 			for j from 0 < j < radius_samples:
+ * 				radius = sample_radii[j]             # <<<<<<<<<<<<<<
  * 				for k from 0 < k < rotation_samples:
  * 					rotn = rotns[k]
  */
-      __pyx_t_21 = __pyx_v_radius_samples;
-      for (__pyx_v_radius = 0.0+1; __pyx_v_radius < __pyx_t_21; __pyx_v_radius++) {
+        __pyx_t_19 = __Pyx_GetItemInt(__pyx_v_sample_radii, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_19 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+        __Pyx_GOTREF(__pyx_t_19);
+        __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_t_19); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+        __pyx_v_radius = __pyx_t_17;
 
-        /* "cryoem/polar_image_ft.pyx":113
- * 			# really need to fix this up the radii are off
- * 			for radius from 0 < radius < radius_samples:
+        /* "cryoem/polar_image_ft.pyx":112
+ * 			for j from 0 < j < radius_samples:
+ * 				radius = sample_radii[j]
  * 				for k from 0 < k < rotation_samples:             # <<<<<<<<<<<<<<
  * 					rotn = rotns[k]
- * #				for rotn in rotns:
+ * 					x = radius*cos(rotn)
  */
         __pyx_t_22 = __pyx_v_rotation_samples;
         for (__pyx_v_k = 0+1; __pyx_v_k < __pyx_t_22; __pyx_v_k++) {
 
-          /* "cryoem/polar_image_ft.pyx":114
- * 			for radius from 0 < radius < radius_samples:
+          /* "cryoem/polar_image_ft.pyx":113
+ * 				radius = sample_radii[j]
  * 				for k from 0 < k < rotation_samples:
  * 					rotn = rotns[k]             # <<<<<<<<<<<<<<
- * #				for rotn in rotns:
  * 					x = radius*cos(rotn)
+ * 					y = radius*sin(rotn)
  */
-          __pyx_t_19 = __Pyx_GetItemInt(__pyx_v_rotns, __pyx_v_k, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(__pyx_t_19 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+          __pyx_t_19 = __Pyx_GetItemInt(__pyx_v_rotns, __pyx_v_k, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_19 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
           __Pyx_GOTREF(__pyx_t_19);
-          __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_t_19); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_t_19); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
           __pyx_v_rotn = __pyx_t_17;
 
-          /* "cryoem/polar_image_ft.pyx":116
+          /* "cryoem/polar_image_ft.pyx":114
+ * 				for k from 0 < k < rotation_samples:
  * 					rotn = rotns[k]
- * #				for rotn in rotns:
  * 					x = radius*cos(rotn)             # <<<<<<<<<<<<<<
  * 					y = radius*sin(rotn)
  * 					crow = numpy.int(centre_y - y)
  */
           __pyx_v_x = (__pyx_v_radius * cos(__pyx_v_rotn));
 
-          /* "cryoem/polar_image_ft.pyx":117
- * #				for rotn in rotns:
+          /* "cryoem/polar_image_ft.pyx":115
+ * 					rotn = rotns[k]
  * 					x = radius*cos(rotn)
  * 					y = radius*sin(rotn)             # <<<<<<<<<<<<<<
  * 					crow = numpy.int(centre_y - y)
@@ -2945,19 +2958,19 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
  */
           __pyx_v_y = (__pyx_v_radius * sin(__pyx_v_rotn));
 
-          /* "cryoem/polar_image_ft.pyx":118
+          /* "cryoem/polar_image_ft.pyx":116
  * 					x = radius*cos(rotn)
  * 					y = radius*sin(rotn)
  * 					crow = numpy.int(centre_y - y)             # <<<<<<<<<<<<<<
  * 					ccol = numpy.int(centre_x + x)
  * 					pixel_sum += power_img[crow,ccol]
  */
-          __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_int); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_int); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-          __pyx_t_12 = PyFloat_FromDouble((__pyx_v_centre_y - __pyx_v_y)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = PyFloat_FromDouble((__pyx_v_centre_y - __pyx_v_y)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_1 = NULL;
           if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -2970,38 +2983,38 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
             }
           }
           if (!__pyx_t_1) {
-            __pyx_t_19 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_12); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_19 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_12); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_GOTREF(__pyx_t_19);
           } else {
-            __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1); __pyx_t_1 = NULL;
             __Pyx_GIVEREF(__pyx_t_12);
             PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_12);
             __pyx_t_12 = 0;
-            __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_19);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           }
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __pyx_t_23 = __Pyx_PyInt_As_int(__pyx_t_19); if (unlikely((__pyx_t_23 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_23 = __Pyx_PyInt_As_int(__pyx_t_19); if (unlikely((__pyx_t_23 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
           __pyx_v_crow = __pyx_t_23;
 
-          /* "cryoem/polar_image_ft.pyx":119
+          /* "cryoem/polar_image_ft.pyx":117
  * 					y = radius*sin(rotn)
  * 					crow = numpy.int(centre_y - y)
  * 					ccol = numpy.int(centre_x + x)             # <<<<<<<<<<<<<<
  * 					pixel_sum += power_img[crow,ccol]
  * 
  */
-          __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_int); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_int); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __pyx_t_5 = PyFloat_FromDouble((__pyx_v_centre_x + __pyx_v_x)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_5 = PyFloat_FromDouble((__pyx_v_centre_x + __pyx_v_x)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_5);
           __pyx_t_12 = NULL;
           if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -3014,26 +3027,26 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
             }
           }
           if (!__pyx_t_12) {
-            __pyx_t_19 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_19 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
             __Pyx_GOTREF(__pyx_t_19);
           } else {
-            __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_12); __pyx_t_12 = NULL;
             __Pyx_GIVEREF(__pyx_t_5);
             PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_5);
             __pyx_t_5 = 0;
-            __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_19);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           }
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          __pyx_t_23 = __Pyx_PyInt_As_int(__pyx_t_19); if (unlikely((__pyx_t_23 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_23 = __Pyx_PyInt_As_int(__pyx_t_19); if (unlikely((__pyx_t_23 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
           __pyx_v_ccol = __pyx_t_23;
 
-          /* "cryoem/polar_image_ft.pyx":120
+          /* "cryoem/polar_image_ft.pyx":118
  * 					crow = numpy.int(centre_y - y)
  * 					ccol = numpy.int(centre_x + x)
  * 					pixel_sum += power_img[crow,ccol]             # <<<<<<<<<<<<<<
@@ -3053,13 +3066,13 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
           } else if (unlikely(__pyx_t_25 >= __pyx_pybuffernd_power_img.diminfo[1].shape)) __pyx_t_23 = 1;
           if (unlikely(__pyx_t_23 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_23);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_v_pixel_sum = (__pyx_v_pixel_sum + (*__Pyx_BufPtrStrided2d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_power_img.rcbuffer->pybuffer.buf, __pyx_t_24, __pyx_pybuffernd_power_img.diminfo[0].strides, __pyx_t_25, __pyx_pybuffernd_power_img.diminfo[1].strides)));
         }
       }
 
-      /* "cryoem/polar_image_ft.pyx":122
+      /* "cryoem/polar_image_ft.pyx":120
  * 					pixel_sum += power_img[crow,ccol]
  * 
  * 			pixel_sum /= radius_samples*rotation_samples             # <<<<<<<<<<<<<<
@@ -3069,28 +3082,28 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
       __pyx_t_21 = (__pyx_v_radius_samples * __pyx_v_rotation_samples);
       if (unlikely(__pyx_t_21 == 0)) {
         PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __pyx_v_pixel_sum = (__pyx_v_pixel_sum / __pyx_t_21);
 
-      /* "cryoem/polar_image_ft.pyx":123
+      /* "cryoem/polar_image_ft.pyx":121
  * 
  * 			pixel_sum /= radius_samples*rotation_samples
  * 			polar_img[npolar_rows - prow - 1,pcol] = pixel_sum             # <<<<<<<<<<<<<<
  * 
  * 	return polar_img
  */
-      __pyx_t_19 = PyFloat_FromDouble(__pyx_v_pixel_sum); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_19 = PyFloat_FromDouble(__pyx_v_pixel_sum); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_19);
-      __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_npolar_rows); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_npolar_rows); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PyNumber_Subtract(__pyx_t_2, __pyx_v_prow); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyNumber_Subtract(__pyx_t_2, __pyx_v_prow); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_t_1, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_t_1, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
@@ -3098,11 +3111,11 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
       __Pyx_GIVEREF(__pyx_v_pcol);
       PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_pcol);
       __pyx_t_2 = 0;
-      if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_polar_img), __pyx_t_1, __pyx_t_19) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_polar_img), __pyx_t_1, __pyx_t_19) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
 
-      /* "cryoem/polar_image_ft.pyx":101
+      /* "cryoem/polar_image_ft.pyx":99
  * 
  * 		# go around the circle in uniform steps as with radii but no square root
  * 		for prow in range(npolar_rows):             # <<<<<<<<<<<<<<
@@ -3111,22 +3124,22 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
  */
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_16 = __Pyx_PyInt_As_long(__pyx_v_pcol); if (unlikely((__pyx_t_16 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_16 = __Pyx_PyInt_As_long(__pyx_v_pcol); if (unlikely((__pyx_t_16 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "cryoem/polar_image_ft.pyx":96
+  /* "cryoem/polar_image_ft.pyx":94
  * 
  * 	# start in the middle going out
  * 	for pcol from 0 < pcol < npolar_cols:             # <<<<<<<<<<<<<<
  * 		rad1,rad2 = radius_steps[pcol], radius_steps[pcol+1]
  * 		sample_radii = get_sample_radii(rad1,rad2,radius_samples)
  */
-  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_t_16); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_t_16); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_XDECREF_SET(__pyx_v_pcol, __pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cryoem/polar_image_ft.pyx":125
+  /* "cryoem/polar_image_ft.pyx":123
  * 			polar_img[npolar_rows - prow - 1,pcol] = pixel_sum
  * 
  * 	return polar_img             # <<<<<<<<<<<<<<
@@ -5368,7 +5381,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_get_sample_radii, __pyx_k_get_sample_radii, sizeof(__pyx_k_get_sample_radii), 0, 0, 1, 1},
   {&__pyx_n_s_get_sample_rotations, __pyx_k_get_sample_rotations, sizeof(__pyx_k_get_sample_rotations), 0, 0, 1, 1},
   {&__pyx_kp_s_home_harry_local_Cryo_EM_cryoem, __pyx_k_home_harry_local_Cryo_EM_cryoem, sizeof(__pyx_k_home_harry_local_Cryo_EM_cryoem), 0, 0, 1, 0},
-  {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_int, __pyx_k_int, sizeof(__pyx_k_int), 0, 0, 1, 1},
   {&__pyx_n_s_j, __pyx_k_j, sizeof(__pyx_k_j), 0, 0, 1, 1},
@@ -5419,7 +5431,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 218; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
@@ -5540,10 +5552,10 @@ static int __Pyx_InitCachedConstants(void) {
  * 		int npolar_rows, int npolar_cols, double polar_radius,
  * 		int radius_samples, int rotation_samples):
  */
-  __pyx_tuple__13 = PyTuple_Pack(30, __pyx_n_s_power_img, __pyx_n_s_npolar_rows, __pyx_n_s_npolar_cols, __pyx_n_s_polar_radius, __pyx_n_s_radius_samples, __pyx_n_s_rotation_samples, __pyx_n_s_polar_img, __pyx_n_s_max_radius, __pyx_n_s_radius_steps, __pyx_n_s_rotation_steps, __pyx_n_s_centre_x, __pyx_n_s_centre_y, __pyx_n_s_sample_radii, __pyx_n_s_sample_rotations, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_rad1, __pyx_n_s_rad2, __pyx_n_s_rotn, __pyx_n_s_radius, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_crow, __pyx_n_s_ccol, __pyx_n_s_pixel_sum, __pyx_n_s_pcol, __pyx_n_s_prow, __pyx_n_s_shift_rotn, __pyx_n_s_rotns, __pyx_n_s_k); if (unlikely(!__pyx_tuple__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__13 = PyTuple_Pack(29, __pyx_n_s_power_img, __pyx_n_s_npolar_rows, __pyx_n_s_npolar_cols, __pyx_n_s_polar_radius, __pyx_n_s_radius_samples, __pyx_n_s_rotation_samples, __pyx_n_s_polar_img, __pyx_n_s_max_radius, __pyx_n_s_radius_steps, __pyx_n_s_rotation_steps, __pyx_n_s_centre_x, __pyx_n_s_centre_y, __pyx_n_s_sample_radii, __pyx_n_s_sample_rotations, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_rad1, __pyx_n_s_rad2, __pyx_n_s_rotn, __pyx_n_s_radius, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_crow, __pyx_n_s_ccol, __pyx_n_s_pixel_sum, __pyx_n_s_pcol, __pyx_n_s_prow, __pyx_n_s_shift_rotn, __pyx_n_s_rotns); if (unlikely(!__pyx_tuple__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(6, 0, 30, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_harry_local_Cryo_EM_cryoem, __pyx_n_s_polar_ft, 47, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(6, 0, 29, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_harry_local_Cryo_EM_cryoem, __pyx_n_s_polar_ft, 47, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;

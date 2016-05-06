@@ -76,9 +76,7 @@ def polar_ft(numpy.ndarray[numpy.float64_t,ndim=2] power_img,
 	cdef numpy.ndarray[numpy.float64_t,ndim=1] sample_rotations = \
 		get_sample_rotations(npolar_rows,rotation_samples)
 
-
-#herehere
-	cdef int i, j
+	cdef int j,k
 
 	cdef double rad1, rad2
 	cdef double rotn, radius
@@ -109,10 +107,10 @@ def polar_ft(numpy.ndarray[numpy.float64_t,ndim=2] power_img,
 			pixel_sum = 0.0
 
 			# really need to fix this up the radii are off
-			for radius from 0 < radius < radius_samples:
+			for j from 0 < j < radius_samples:
+				radius = sample_radii[j]
 				for k from 0 < k < rotation_samples:
 					rotn = rotns[k]
-#				for rotn in rotns:
 					x = radius*cos(rotn)
 					y = radius*sin(rotn)
 					crow = numpy.int(centre_y - y)
