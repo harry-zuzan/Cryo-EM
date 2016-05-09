@@ -121,3 +121,5 @@ def polar_ft(numpy.ndarray[numpy.float64_t,ndim=2] power_img,
 			polar_img[npolar_rows - prow - 1,pcol] = pixel_sum
 
 	return polar_img
+
+# adding a dummy line to test github commits
