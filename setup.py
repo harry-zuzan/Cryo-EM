@@ -14,8 +14,19 @@ extensions = [
 #		)
 	]
 
+py_scripts=[
+	'scripts/cryoem-composite-mrc-to-hdf5.py',
+	'scripts/cryoem-compute-fft2D.py',
+	'scripts/cryoem-compute-polar-ft-pwr.py',
+	'scripts/cryoem-compute-shrink2D.py',
+	'scripts/cryoem-write-image-power.py',
+	'scripts/cryoem-write-image-real.py']
+
+
 setup(
     name = "Cryo-Electron Microscopy Utilities",
     ext_modules = cythonize(extensions),
+	scripts=py_scripts,
 	packages=['cryoem'],
 )
+

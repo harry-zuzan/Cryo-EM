@@ -3143,6 +3143,8 @@ static PyObject *__pyx_pf_6cryoem_14polar_image_ft_6polar_ft(CYTHON_UNUSED PyObj
  * 			polar_img[npolar_rows - prow - 1,pcol] = pixel_sum
  * 
  * 	return polar_img             # <<<<<<<<<<<<<<
+ * 
+ * # adding a dummy line to test github commits
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_polar_img));
