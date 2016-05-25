@@ -7,9 +7,14 @@ from libc.math cimport M_PI
 
 
 # The Fourier transform with image sum at (0,0) needs to be recentred
-def recentre_image(the_img):
-	the_img = numpy.roll(the_img,the_img.shape[0]/2,0)
-	the_img = numpy.roll(the_img,the_img.shape[1]/2,1)
+def recentre_image(the_img,forward=True):
+	if forward:
+		the_img = numpy.roll(the_img,the_img.shape[0]/2,0)
+		the_img = numpy.roll(the_img,the_img.shape[1]/2,1)
+		return the_img
+
+	the_img = numpy.roll(-the_img,the_img.shape[0]/2,0)
+	the_img = numpy.roll(-the_img,the_img.shape[1]/2,1)
 	return the_img
 
 
