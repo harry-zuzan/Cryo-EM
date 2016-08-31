@@ -20,6 +20,7 @@ py_scripts=[
 	'scripts/cryoem-compute-polar-ft-pwr.py',
 	'scripts/cryoem-compute-shrink2D.py',
 	'scripts/cryoem-compute-shrink2D-redescend.py',
+	'scripts/cryoem-shrink2D-restore.py',
 	'scripts/cryoem-write-image-power.py',
 	'scripts/cryoem-write-image-real.py']
 

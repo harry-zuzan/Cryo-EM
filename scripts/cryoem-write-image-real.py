@@ -50,6 +50,10 @@ def parse_options():
 		 dest='clip', type="float",  default=CLIP,
 		help="fraction of extreme intensities to clip [default=%default]")
 
+	option_group.add_option("--log2", action="store_true",
+		 dest='log2', default=False,
+		help="log (base2) the image data [default=%default]")
+
 	parser.add_option_group(option_group)
 
 	return parser
@@ -79,6 +83,7 @@ image_name_suffix = getattr(options,'image-name-suffix')
 group = getattr(options,'group')
 spatial_data_set = getattr(options,'spatial-data-set')
 clip = getattr(options,'clip')
+log2 = getattr(options,'log2')
 
 
 for hfname in pargs:
@@ -125,6 +130,9 @@ for hfname in pargs:
 	minval,maxval = sorted_image[clip_idx], sorted_image[npix - clip_idx - 1]
 
 	real_image = real_image.clip(minval,maxval)
+
+	if log2: real_image = numpy.log2(real_image + 1.0)
+
 	real_image *= 255.0/real_image.max()
 
 	real_image255 = real_image.astype(numpy.uint8)
